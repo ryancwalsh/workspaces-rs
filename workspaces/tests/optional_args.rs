@@ -16,7 +16,8 @@ async fn init(worker: &Worker<impl DevNetwork>) -> anyhow::Result<Contract> {
             "total_supply": parse_near!("1,000,000,000 N").to_string(),
         }))?
         .transact()
-        .await?;
+        .await?
+        .ok()?;
 
     Ok(contract)
 }
