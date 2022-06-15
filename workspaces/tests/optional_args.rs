@@ -32,8 +32,17 @@ async fn test_empty_args_error() -> anyhow::Result<()> {
         .max_gas()
         .deposit(1)
         .transact()
-        .await;
-    assert!(format!("{:?}", res.unwrap_err()).contains("Failed to deserialize input from JSON"));
+        .await?;
+
+    match res.ok() {
+        Ok(()) => panic!("Expected error: Failed to deserialize input from JSON"),
+        Err(err) => match err {
+            workspaces::error::Error::ExecutionError(msg) => {
+                assert!(msg.contains("Failed to deserialize input from JSON"));
+            }
+            other @ _ => panic!("Expected ExecutionError, got: {:?}", other),
+        },
+    }
 
     Ok(())
 }
