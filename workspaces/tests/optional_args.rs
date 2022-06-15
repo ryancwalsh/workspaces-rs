@@ -40,7 +40,7 @@ async fn test_empty_args_error() -> anyhow::Result<()> {
             workspaces::error::Error::ExecutionError(msg) => {
                 assert!(msg.contains("Failed to deserialize input from JSON"));
             }
-            other @ _ => panic!("Expected ExecutionError, got: {:?}", other),
+            other => panic!("Expected ExecutionError, got: {:?}", other),
         },
     }
 
