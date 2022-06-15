@@ -41,6 +41,17 @@ impl<T> CallExecution<T> {
     pub fn is_failure(&self) -> bool {
         self.details.is_failure()
     }
+
+    /// Checks whether the transaction was successful, if not returns a Result with the
+    /// corresponding error that occured.
+    pub fn ok(&self) -> Result<()> {
+        self.details.ok()
+    }
+
+    /// Assert that the transaction was successful, and that everything is good to go.
+    pub fn assert_ok(&self) {
+        self.details.assert_ok();
+    }
 }
 
 impl<T> From<CallExecution<T>> for Result<T> {
