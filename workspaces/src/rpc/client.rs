@@ -38,6 +38,7 @@ const ERR_INVALID_VARIANT: &str =
 pub struct Client {
     rpc_addr: String,
     rpc_client: JsonRpcClient,
+    /// AccessKey nonces to reference when sending transactions.
     access_key_nonces: RwLock<HashMap<AccountId, Mutex<Nonce>>>,
 }
 
